@@ -12,11 +12,11 @@ class quizlager:
 		self.alt = alt
 	def __str__(self):
 		resultat = self.q
-		for i, alternativ in enumerate(self.a):
-			resultat += f"\n{i+1}: {alternativ}"
+		for i, alternativ in enumerate(self.alt):
+			resultat += f"\n{i}: {alternativ}"
 		return resultat
-	def sjekk_svar(self, a):
-		if a == self.a:
+	def sjekk_svar(self, ans):
+		if ans == self.a:
 			return True
 		else:
 			return False
@@ -37,5 +37,30 @@ def qfunction():
 	return qlist
 
 if __name__ == "__main__":
-	qlista = qfunction()
-	print(qlista[0].korrekt_svar_tekst())
+    spiller1poeng = 0
+    spiller2poeng = 0
+    qlista = qfunction()
+    for i in range(len(qlista)):
+        print(qlista[i])
+        print("\n")
+        fortsetter = True
+        while fortsetter == True:
+            try:
+                spiller1input = int(input("Spiller 1 svar: "))
+                spiller2input = int(input("Spiller 2 svar: "))
+                fortsetter = False
+            except ValueError:
+                print("Int ok takk :)")
+        if qlista[i].sjekk_svar(spiller1input) == True:
+            spiller1poeng += 1
+            print("\nSpiller 1 korrekt")
+        else:
+            print("\nSpiller 1 feil")
+        if qlista[i].sjekk_svar(spiller2input) == True:
+            spiller2poeng += 1
+            print("Spiller 2 korrekt\n")
+        else:
+            print("Spiller 2 feil\n")
+        print(qlista[i].korrekt_svar_tekst())
+    print("\nSpiller 1 har " + str(spiller1poeng) + " poeng")
+    print("Spiller 2 har " + str(spiller2poeng) + " poeng \n")
